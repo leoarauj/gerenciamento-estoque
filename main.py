@@ -1,4 +1,4 @@
-from services.estoque_service import cadastrar_estoque, atualizar_estoque
+from services.estoque_service import cadastrar_estoque, atualizar_estoque, rastrear_localizacao
 
 label_nome_produto = "Nome do Produto"
 label_categoria_produto = "Categoria"
@@ -32,9 +32,11 @@ def main():
     mockCadastro(estoque)
 
     while True:
-        print("\n###### Gerenciamento de Estoque #####")
+        print("----------------------------------")
+        print("###### Gerenciamento de Estoque #####")
         print(" * 1. Cadastrar Produto")
         print(" * 2. Atualizar Estoque")
+        print(" * 3. Rastrear Localização")
         print(" * 0. Sair")
         opcao = input("Escolha uma opção: ")
 
@@ -83,6 +85,16 @@ def main():
                     tipo = input("Tipo de movimentação (entrada/saida): ").lower()
                     quantidade = int(input(formata_label(label_quantidade_produto)))
                     atualizar_estoque(estoque, nome, quantidade, tipo)
+                else:
+                    print("----------------------------------")
+                    print(f"\nProduto '{nome}' não encontrado.")
+
+            case '3':
+                nome = input("Nome do Produto: ")
+                localizacao = rastrear_localizacao(estoque, nome)
+                if localizacao:
+                    print("----------------------------------")
+                    print(f"\nLocalização do produto '{nome}': {localizacao}")
                 else:
                     print("----------------------------------")
                     print(f"\nProduto '{nome}' não encontrado.")

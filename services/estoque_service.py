@@ -22,3 +22,8 @@ def atualizar_estoque(estoque, nome, quantidade, tipo):
         print(f"Estoque do produto '{nome}' atualizado com sucesso! Total: {estoque[nome]["quantidade"]}")
     else:
         print(f"Produto '{nome}' não encontrado.")
+
+def rastrear_localizacao(estoque, nome):
+    if nome in estoque:
+        return estoque[nome]["localizacao"]
+    return None
