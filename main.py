@@ -1,4 +1,4 @@
-from services.estoque_service import cadastrar_estoque
+from services.estoque_service import cadastrar_estoque, atualizar_estoque
 
 label_nome_produto = "Nome do Produto"
 label_categoria_produto = "Categoria"
@@ -21,12 +21,20 @@ def verificar_campo_vazio(campo, descricao):
 def formata_label(label):
     return f"- {label}: "
 
+def mockCadastro(estoque):
+    cadastrar_estoque(estoque, "Produto A", "Categoria X", 50, 10.0, "Prateleira 1")
+    cadastrar_estoque(estoque, "Produto B", "Categoria X", 100, 20.0, "Prateleira 2")
+    cadastrar_estoque(estoque, "Produto C", "Categoria X", 150, 30.0, "Prateleira 3")
+
 def main():
     estoque = {}
+
+    mockCadastro(estoque)
 
     while True:
         print("\n###### Gerenciamento de Estoque #####")
         print(" * 1. Cadastrar Produto")
+        print(" * 2. Atualizar Estoque")
         print(" * 0. Sair")
         opcao = input("Escolha uma opção: ")
 
@@ -46,9 +54,9 @@ def main():
                         print("Operação cancelada!")
                         continue
 
-                quantidade = input(formata_label(label_quantidade_produto))
+                quantidade = int(input(formata_label(label_quantidade_produto)))
                 if verificar_campo_vazio(quantidade, label_quantidade_produto):
-                    quantidade = input(formata_label(label_quantidade_produto))
+                    quantidade = int(input(formata_label(label_quantidade_produto)))
                     if not quantidade or quantidade == 0:
                         print("Operação cancelada!")
                         continue
@@ -68,6 +76,16 @@ def main():
                         continue
 
                 cadastrar_estoque(estoque, nome, categoria, quantidade, preco, localizacao)
+
+            case '2':
+                nome = input(formata_label(label_nome_produto))
+                if nome in estoque:
+                    tipo = input("Tipo de movimentação (entrada/saida): ").lower()
+                    quantidade = int(input(formata_label(label_quantidade_produto)))
+                    atualizar_estoque(estoque, nome, quantidade, tipo)
+                else:
+                    print("----------------------------------")
+                    print(f"\nProduto '{nome}' não encontrado.")
             case '0':
                 print("Saindo do sistema!")
                 break
