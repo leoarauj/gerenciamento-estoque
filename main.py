@@ -1,4 +1,5 @@
 from services.estoque_service import cadastrar_estoque, atualizar_estoque, rastrear_localizacao
+from services.relatorio_service import gerar_relatorios
 
 label_nome_produto = "Nome do Produto"
 label_categoria_produto = "Categoria"
@@ -22,9 +23,12 @@ def formata_label(label):
     return f"- {label}: "
 
 def mockCadastro(estoque):
-    cadastrar_estoque(estoque, "Produto A", "Categoria X", 50, 10.0, "Prateleira 1")
-    cadastrar_estoque(estoque, "Produto B", "Categoria X", 100, 20.0, "Prateleira 2")
-    cadastrar_estoque(estoque, "Produto C", "Categoria X", 150, 30.0, "Prateleira 3")
+    cadastrar_estoque(estoque, "Produto A", "Categoria X1", 50, 10.0, "Prateleira 1")
+    cadastrar_estoque(estoque, "Produto B", "Categoria X2", 110, 20.0, "Prateleira 2")
+    cadastrar_estoque(estoque, "Produto C", "Categoria X3", 150, 30.0, "Prateleira 3")
+    cadastrar_estoque(estoque, "Produto D", "Categoria X4", 9, 40.0, "Prateleira 4")
+    cadastrar_estoque(estoque, "Produto E", "Categoria X5", 2, 50.0, "Prateleira 5")
+    cadastrar_estoque(estoque, "Produto F", "Categoria X6", 5, 60.0, "Prateleira 6")
 
 def main():
     estoque = {}
@@ -33,10 +37,11 @@ def main():
 
     while True:
         print("----------------------------------")
-        print("###### Gerenciamento de Estoque #####")
+        print("###### Gerenciamento de Estoque ######")
         print(" * 1. Cadastrar Produto")
         print(" * 2. Atualizar Estoque")
         print(" * 3. Rastrear Localização")
+        print(" * 4. Gerar Relatórios")
         print(" * 0. Sair")
         opcao = input("Escolha uma opção: ")
 
@@ -98,6 +103,8 @@ def main():
                 else:
                     print("----------------------------------")
                     print(f"\nProduto '{nome}' não encontrado.")
+            case '4':
+                gerar_relatorios(estoque)
             case '0':
                 print("Saindo do sistema!")
                 break
